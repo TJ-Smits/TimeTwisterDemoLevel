@@ -6,9 +6,11 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
 
-    public float jumpHeight = 3.0f;
+    public float jumpHeight = 1.0f;
 
-    public float speed = 12f;
+    public float defaultSpeed = 3.0f;
+
+    public float runningSpeedMultiplier = 2.0f;
 
     public float gravity = -9.81f;
 
@@ -54,6 +56,15 @@ public class PlayerMovement : MonoBehaviour
         float zInput = Input.GetAxisRaw("Vertical");
 
         Vector3 move = transform.right * xInput + transform.forward * zInput;
+
+        float speed = defaultSpeed;
+        if (Input.GetButton("Run"))
+        {
+            speed *= runningSpeedMultiplier;
+        } else
+        {
+            speed = defaultSpeed;
+        }
 
         controller.Move(move * speed * Time.deltaTime);
     }
