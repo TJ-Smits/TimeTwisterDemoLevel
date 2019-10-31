@@ -36,6 +36,7 @@ public class ObjectManipulation : MonoBehaviour
                 crosshair.enabled = true;
 
                 if (Input.GetButtonDown("Interact"))
+
                 {
                     if (!interactedObject)
                     {
