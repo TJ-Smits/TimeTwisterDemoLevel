@@ -10,9 +10,9 @@ public class ObjectManipulation : MonoBehaviour
 
     public Image crosshair;
 
-    private Interactable interactable;
-
     private new Camera camera;
+
+    private Interactable interactedObject;
 
     // Start is called before the first frame update
     void Start()
@@ -37,17 +37,34 @@ public class ObjectManipulation : MonoBehaviour
 
                 if (Input.GetButtonDown("Fire1"))
                 {
-                    interactable = hit.collider.GetComponent<Interactable>();
-                    interactable.SetGravity(false);
+                    if (!interactedObject)
+                    {
+                        interactedObject = hit.collider.GetComponent<Interactable>();
+                        interactedObject.SetGravity(false);
+                    }
+                    else
+                    {
+                        interactedObject.SetGravity(true);
+                        interactedObject = null;
+                    }
+                }
+
+                if (interactedObject)
+                {
                     Vector3 position = new Vector3(Screen.width / 2, Screen.height / 2, 2f);
-                    interactable.MoveToTarget(camera.ScreenToWorldPoint(position));
+                    interactedObject.MoveToTarget(camera.ScreenToWorldPoint(position));
                 }
             }
-        } else
+        }
+        else
         {
             if (crosshair.enabled)
             {
-                interactable.SetGravity(true);
+                if (interactedObject)
+                {
+                    interactedObject.SetGravity(true);
+                    interactedObject = null;
+                }
                 crosshair.enabled = false;
             }
         }
