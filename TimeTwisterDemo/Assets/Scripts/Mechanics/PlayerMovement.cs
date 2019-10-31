@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
     public float gravity = -9.81f;
 
+    public AudioClip oooff;
+
     private Vector3 velocity;
 
     public Transform groundCheck;
@@ -72,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+        AudioSource.PlayClipAtPoint(oooff, transform.position);
     }
 
     private void ResetGravityWhenNearGround()
