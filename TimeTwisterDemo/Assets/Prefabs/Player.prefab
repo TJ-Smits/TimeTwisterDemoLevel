@@ -52,7 +52,7 @@ CharacterController:
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.7
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.02
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2735896111118572088
@@ -82,7 +82,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 2735896111118572087}
   jumpHeight: 1
-  speed: 3
+  defaultSpeed: 3
+  runningSpeedMultiplier: 1.5
   gravity: -9.81
   groundCheck: {fileID: 2735896112456691486}
   groundDistance: 0.4
@@ -103,6 +104,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractionDistance: 2
   crosshair: {fileID: 0}
+  camera: {fileID: 0}
+  interactedObject: {fileID: 0}
 --- !u!1 &2735896111505232049
 GameObject:
   m_ObjectHideFlags: 0

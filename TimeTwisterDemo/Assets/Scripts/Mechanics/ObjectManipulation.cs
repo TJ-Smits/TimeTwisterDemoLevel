@@ -10,9 +10,9 @@ public class ObjectManipulation : MonoBehaviour
 
     public Image crosshair;
 
-    private new Camera camera;
+    public new Camera camera;
 
-    private Interactable interactedObject;
+    public Interactable interactedObject;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +35,8 @@ public class ObjectManipulation : MonoBehaviour
             {
                 crosshair.enabled = true;
 
-                if (Input.GetButtonDown("Fire1"))
+                if (Input.GetButtonDown("Interact"))
+
                 {
                     if (!interactedObject)
                     {

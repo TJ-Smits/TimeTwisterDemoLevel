@@ -6,11 +6,15 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
 
-    public float jumpHeight = 3.0f;
+    public float jumpHeight = 1.0f;
 
-    public float speed = 12f;
+    public float defaultSpeed = 3.0f;
+
+    public float runningSpeedMultiplier = 2.0f;
 
     public float gravity = -9.81f;
+
+    public AudioClip oooff;
 
     private Vector3 velocity;
 
@@ -55,12 +59,22 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.right * xInput + transform.forward * zInput;
 
+        float speed = defaultSpeed;
+        if (Input.GetButton("Run"))
+        {
+            speed *= runningSpeedMultiplier;
+        } else
+        {
+            speed = defaultSpeed;
+        }
+
         controller.Move(move * speed * Time.deltaTime);
     }
 
     private void Jump()
     {
         velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+        AudioSource.PlayClipAtPoint(oooff, transform.position);
     }
 
     private void ResetGravityWhenNearGround()
