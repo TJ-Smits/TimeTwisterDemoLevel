@@ -8,11 +8,18 @@ public class SwitchPosition : MonoBehaviour
     public WorldData worldData;
     public Transform alternatePositionTransform;
 
+    public ObjectManipulation objects;
+
     public CharacterController controller;
 
     public float cooldown = 3.0f;
 
     private float _time;
+
+    private void Start()
+    {
+        worldData.playerInWorld = "Present";
+    }
 
     private void Update()
     {
@@ -22,23 +29,30 @@ public class SwitchPosition : MonoBehaviour
         {
             if (_time <= 0.0f)
             {
+                Vector3 playerTransform = transform.position;
                 Vector3 alternatePosition = alternatePositionTransform.position;
 
-                alternatePositionTransform.position = transform.position;
-                //transform.position = alternatePosition;
+                alternatePositionTransform.position = playerTransform;
+                controller.enabled = false;
+                transform.position = alternatePosition;
+                controller.enabled = true;
+
+                if (objects.interactedObject)
+                {
+                    Vector3 position = new Vector3(Screen.width / 2, Screen.height / 2, 2f);
+                    objects.interactedObject.MoveToTarget(objects.camera.ScreenToWorldPoint(position));
+                }
 
                 if (worldData.playerInWorld.Equals("Present"))
                 {
                     worldData.playerInWorld = "Past";
-                    controller.Move(-worldData.WorldDistance);
                 } 
                 else
                 {
                     worldData.playerInWorld = "Present";
-                    controller.transform.position -= worldData.WorldDistance;
                 }
-                
-                Debug.Log("Switching places.");
+
+                    Debug.Log("Switching places.");
                 _time = cooldown;
             }
 

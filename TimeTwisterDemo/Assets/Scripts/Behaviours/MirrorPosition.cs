@@ -8,6 +8,11 @@ public class MirrorPosition : MonoBehaviour
 
     public Transform player;
 
+    private void Start()
+    {
+        transform.position = player.transform.position - worldData.WorldDistance;
+    }
+
     // Update is called once per frame
     void Update()
     {
